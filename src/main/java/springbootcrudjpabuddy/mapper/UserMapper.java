@@ -7,26 +7,26 @@ import org.mapstruct.MappingConstants.ComponentModel;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
-import springbootcrudjpabuddy.dto.ProjectDto;
-import springbootcrudjpabuddy.entity.Project;
+import springbootcrudjpabuddy.dto.UserDto;
+import springbootcrudjpabuddy.entity.User;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = ComponentModel.SPRING,
-        uses= {UserMapper.class, TaskMapper.class})
-public interface ProjectMapper {
+        uses = {ProjectMapper.class})
+public interface UserMapper {
 
-    Project toEntity(ProjectDto projectDto);
+    User toEntity(UserDto userDto);
 
-    ProjectDto toDto(Project project);
+    UserDto toDto(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(ProjectDto projectDto, @MappingTarget Project project);
+    void updateUserFromDto(UserDto userDto, @MappingTarget User user);
 
     @AfterMapping
-    default void linkTasks(@MappingTarget Project project) {
-        project.getTasks().forEach(task -> task.setProject(project));
+    default void linkProjects(@MappingTarget User user) {
+        user.getProjects().forEach(project -> project.setManager(user));
     }
 }

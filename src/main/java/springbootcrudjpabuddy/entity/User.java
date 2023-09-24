@@ -1,59 +1,55 @@
-package springbootcrudjpabuddy.entities;
+package springbootcrudjpabuddy.entity;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
 import org.hibernate.proxy.HibernateProxy;
 
-@Entity(name = "user")
+@Entity
 @Table(name = "\"user\"")
-@Builder
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @JsonProperty("username")
     @NotNull
     @Column(name = "username", nullable = false)
     private String username;
 
+    @JsonProperty("password")
     @NotNull
     @Column(name = "password", nullable = false)
     private String password;
-
-    @OneToMany(mappedBy = "manager") @Exclude
-    private Set<Project> projects = new LinkedHashSet<>();
 
     @Email(message = "Please provide a valid email")
     @Column(name = "email", unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "assignee")
-    @Exclude
-    private Set<Task> tasks = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "manager") @Exclude
+    private Set<Project> projects = new LinkedHashSet<>();
 
     @Override
     public final boolean equals(Object o) {

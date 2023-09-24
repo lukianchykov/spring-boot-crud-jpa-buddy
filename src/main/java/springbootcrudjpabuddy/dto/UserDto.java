@@ -1,26 +1,42 @@
 package springbootcrudjpabuddy.dto;
 
-import java.io.Serializable;
+import java.util.Set;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.Value;
-import springbootcrudjpabuddy.entities.User;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import springbootcrudjpabuddy.entity.Project;
+import springbootcrudjpabuddy.entity.User;
 
 /**
  * DTO for {@link User}
  */
-@Value
-public class UserDto implements Serializable {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDto {
 
-    Long id;
+    @JsonProperty("id")
+    private Long id;
 
+    @JsonProperty("username")
     @NotNull
-    String username;
+    private String username;
 
+    @JsonProperty("password")
     @NotNull
-    String password;
+    private String password;
 
+    @JsonProperty("email")
     @Email(message = "Please provide a valid email")
-    String email;
+    private String email;
+
+    @JsonProperty("projects")
+    private Set<Project> projects;
 }

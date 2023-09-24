@@ -1,22 +1,38 @@
 package springbootcrudjpabuddy.dto;
 
-import java.io.Serializable;
 import java.time.Instant;
 
-import lombok.Value;
-import springbootcrudjpabuddy.entities.Task;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import springbootcrudjpabuddy.entity.Task;
 
 /**
  * DTO for {@link Task}
  */
-@Value
-public class TaskDto implements Serializable {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TaskDto {
 
-    Long id;
+    @JsonProperty("id")
+    private Long id;
 
-    String name;
+    @JsonProperty("name")
+    private String name;
 
-    Instant startDate;
+    @JsonProperty("startDate")
+    private Instant startDate;
 
-    Instant endDate;
+    @JsonProperty("endDate")
+    private Instant endDate;
+
+    @JsonProperty("assignee")
+    private UserDto assignee;
+
+    @JsonProperty("project")
+    private ProjectDto project;
 }

@@ -2,7 +2,7 @@ package springbootcrudjpabuddy.repository;
 
 import java.util.List;
 
-import springbootcrudjpabuddy.entities.Project;
+import springbootcrudjpabuddy.entity.Project;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
